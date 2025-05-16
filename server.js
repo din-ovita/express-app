@@ -20,9 +20,14 @@ const pool = mysql.createPool({
 const port = process.env.PORT || 3000;
 
 app.post("/ucapan", async (req, res) => {
-  const { nama, pesan, date } = req.body;
+  const { name, greetings, date } = req.body;
+  console.log("Data diterima:", req.body); // <--- Tambahkan ini
+
   try {
-    await pool.query("INSERT INTO greetings (name, greetings, created_date) VALUES (?, ?, ?)", [nama, pesan, date]);
+    await pool.query(
+      "INSERT INTO greetings (name, greetings, created_date) VALUES (?, ?, ?)",
+      [name, greetings, date]
+    );
     res.status(201).send("Berhasil disimpan");
   } catch (err) {
     console.error(err);
